@@ -8,6 +8,7 @@ namespace RockPaperScissorsLizardSpock
     {
         string GetValidUserInput(string prompt, IEnumerable<string> validValues);
     }
+
     public class ConsoleUserInputProvider : IUserInputProvider
     {
         private string GetUserInput(string prompt)
@@ -15,12 +16,14 @@ namespace RockPaperScissorsLizardSpock
             Console.WriteLine(prompt);
             return Console.ReadLine();
         }
+
         private string GetUserInput(string prompt, IEnumerable<string> validValues)
         {
             var input = GetUserInput(prompt);
             var isValid = validValues.Select(v => v.ToLower()).Contains(input.ToLower());
             return isValid ? input : string.Empty;
         }
+
         public string GetValidUserInput(string prompt, IEnumerable<string> validValues)
         {
             var input = string.Empty;

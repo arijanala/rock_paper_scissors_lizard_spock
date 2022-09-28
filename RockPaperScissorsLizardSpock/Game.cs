@@ -17,12 +17,10 @@ namespace RockPaperScissorsLizardSpock
                 };
 
         private readonly IUserInputProvider _consoleInput;
-        private readonly IResultWriter _resultWriter;
 
-        public Game(IUserInputProvider console, IResultWriter resultWriter)
+        public Game(IUserInputProvider console)
         {
             _consoleInput = console;
-            _resultWriter = resultWriter;
         }
 
         public void Run()
@@ -34,7 +32,10 @@ namespace RockPaperScissorsLizardSpock
                 var player = GetUserSelection();
                 if (player == 0) return;
 
-                var sheldon = Item.Spock;
+                // Player number 2 is a random
+                var r = new Random();
+                var sheldon = (Item)r.Next(1,5);
+
                 Console.WriteLine(Decision.Decide(player, sheldon).ToString());
 
                 Pause();

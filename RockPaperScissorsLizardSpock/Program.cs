@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace RockPaperScissorsLizardSpock
+﻿namespace RockPaperScissorsLizardSpock
 {
     class Program
     {
@@ -15,8 +13,7 @@ namespace RockPaperScissorsLizardSpock
         static void Main(string[] args)
         {
             var consoleReader = new ConsoleUserInputProvider();
-            var consoleWriter = new ConsoleResultWriter();
-            var game = new Game(consoleReader, consoleWriter);
+            var game = new Game(consoleReader);
             game.Run();
         }
     }
