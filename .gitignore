@@ -48,3 +48,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+/RockPaperScissorsLizardSpock/bin/Debug/netcoreapp3.1
+/RockPaperScissorsLizardSpock/obj
