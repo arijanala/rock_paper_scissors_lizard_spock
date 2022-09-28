@@ -10,7 +10,13 @@ namespace RockPaperScissorsLizardSpock.Test
         }
 
         [Test]
-        public void Test1()
+        public void Player1Win()
+        {
+            Assert.Pass();
+        }
+
+        [Test]
+        public void Player2Win()
         {
             Assert.Pass();
         }
