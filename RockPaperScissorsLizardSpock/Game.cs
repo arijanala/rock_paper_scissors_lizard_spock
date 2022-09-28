@@ -16,11 +16,15 @@ namespace RockPaperScissorsLizardSpock
                 { "5", Item.Spock }
                 };
 
-        private readonly IUserInputProvider _consoleInput;
+        private readonly IUserInputProvider _consoleInput1;
+        private readonly IUserInputProvider _consoleInput2;
 
-        public Game(IUserInputProvider console)
+        int player = 1;
+
+        public Game(IUserInputProvider consoleInput1, IUserInputProvider consoleInput2)
         {
-            _consoleInput = console;
+            _consoleInput1 = consoleInput1;
+            _consoleInput2 = consoleInput2;
         }
 
         public void Run()
@@ -29,14 +33,15 @@ namespace RockPaperScissorsLizardSpock
             {
                 LayoutGameScreen();
 
-                var player = GetUserSelection();
-                if (player == 0) return;
+                var player1 = GetUserSelection(_consoleInput1);
+                if (player1 == 0) return;
 
-                // Player number 2 is a random
-                var r = new Random();
-                var sheldon = (Item)r.Next(1,5);
+                //Player number 2 is a random
+                //var r = new Random();
+                //var sheldon = (Item)r.Next(1,5);
+                var player2 = GetUserSelection(_consoleInput2);
 
-                Console.WriteLine(Decision.Decide(player, sheldon).ToString());
+                Console.WriteLine(Decision.Decide(player1, player2).ToString());
 
                 Pause();
             }
@@ -59,12 +64,16 @@ namespace RockPaperScissorsLizardSpock
             Console.WriteLine();
         }
 
-        private Item GetUserSelection()
+        private Item GetUserSelection(IUserInputProvider consoleInput)
         {
+            if (player > 2)
+                player = 1;
+
             var values = _playable.Keys.ToList();
             values.Add(string.Empty); // allows a non-selection
 
-            var input = _consoleInput.GetValidUserInput("Your selection? <ENTER> to quit.", values);
+            var input = consoleInput.GetValidUserInput("Player " + player + " selection ? <ENTER> to quit.", values);
+            ++player;
             if (input == string.Empty) return 0;
 
             return _playable[input];

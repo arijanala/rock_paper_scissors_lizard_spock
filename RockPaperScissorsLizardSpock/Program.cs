@@ -12,8 +12,9 @@
         */
         static void Main(string[] args)
         {
-            var consoleReader = new ConsoleUserInputProvider();
-            var game = new Game(consoleReader);
+            var consoleReader1 = new ConsoleUserInputProvider();
+            var consoleReader2 = new ConsoleUserInputProvider();
+            var game = new Game(consoleReader1, consoleReader2);
             game.Run();
         }
     }
