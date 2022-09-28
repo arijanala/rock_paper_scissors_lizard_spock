@@ -6,14 +6,14 @@ namespace RockPaperScissorsLizardSpock
 {
     public class Game
     {
-        private readonly Dictionary<string, SelectionBase> _playable =
-            new Dictionary<string, SelectionBase>
+        private readonly Dictionary<string, Item> _playable =
+            new Dictionary<string, Item>
                 {
-                { "1", new Rock() },
-                { "2", new Paper() },
-                { "3", new Scissors() },
-                { "4", new Lizard() },
-                { "5", new Spock() }
+                { "1", Item.Rock },
+                { "2", Item.Paper },
+                { "3", Item.Scissors },
+                { "4", Item.Lizard },
+                { "5", Item.Spock }
                 };
 
         private readonly IUserInputProvider _consoleInput;
@@ -32,12 +32,11 @@ namespace RockPaperScissorsLizardSpock
                 LayoutGameScreen();
 
                 var player = GetUserSelection();
-                if (player == null) return;
+                if (player == 0) return;
 
-                var sheldon = new Spock();
-                var result = player.CompareTo(sheldon);
+                var sheldon = Item.Spock;
+                Console.WriteLine(Decision.Decide(player, sheldon).ToString());
 
-                _resultWriter.OutputResult(result, player, sheldon);
                 Pause();
             }
         }
@@ -54,18 +53,18 @@ namespace RockPaperScissorsLizardSpock
             Console.WriteLine("Rock-Paper-Scissors-Lizard-Spock 1.0\n{0}\n", new string('=', 40));
 
             foreach (var item in _playable)
-                Console.WriteLine("\t[{0}] {1}", item.Key, item.Value.Name);
+                Console.WriteLine("\t[{0}] {1}", item.Key, item.Value.ToString());
 
             Console.WriteLine();
         }
 
-        private SelectionBase GetUserSelection()
+        private Item GetUserSelection()
         {
             var values = _playable.Keys.ToList();
             values.Add(string.Empty); // allows a non-selection
 
             var input = _consoleInput.GetValidUserInput("Your selection? <ENTER> to quit.", values);
-            if (input == string.Empty) return null;
+            if (input == string.Empty) return 0;
 
             return _playable[input];
         }

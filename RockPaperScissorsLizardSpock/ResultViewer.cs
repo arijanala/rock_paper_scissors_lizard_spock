@@ -8,6 +8,7 @@ namespace RockPaperScissorsLizardSpock
     {
         void OutputResult(int comparisonResult, SelectionBase player, SelectionBase sheldon);
     }
+
     public class ConsoleResultWriter : IResultWriter
     {
         public void OutputResult(int comparisonResult, SelectionBase player, SelectionBase sheldon)
